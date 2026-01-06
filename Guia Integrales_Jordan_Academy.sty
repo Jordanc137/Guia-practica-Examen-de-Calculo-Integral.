@@ -1,0 +1,155 @@
+\documentclass[12pt]{article}
+
+% --- Paquetes de Idioma y Matemáticas ---
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+
+% --- Estética y Colores ---
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+% Configuración de página
+\geometry{letterpaper, margin=2.5cm}
+
+% Colores Jordan Academy
+\definecolor{JordanBlue}{HTML}{1A237E}
+\definecolor{JordanGold}{HTML}{C5A059}
+\definecolor{LightGray}{HTML}{F5F5F5}
+
+% --- Estilos Personalizados ---
+\newtcolorbox{metodo}[2]{
+    colback=white,
+    colframe=JordanBlue,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    title=#1,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=JordanBlue},
+    sharp corners=northwest,
+    arc=2mm,
+    boxrule=1.2pt,
+    description={#2},
+    before skip=15pt
+}
+
+\newtcolorbox{tip}[1]{
+    colback=LightGray,
+    colframe=JordanGold,
+    sharp corners,
+    boxrule=0pt,
+    leftrule=4pt,
+    fonttitle=\bfseries,
+    coltitle=JordanBlue,
+    title=Indicador Clave: #1
+}
+
+% --- Encabezado ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textit{\textcolor{gray}{Guía de Estrategia Matemática}}}
+\rhead{\textbf{\textcolor{JordanBlue}{Jordan Academy}}}
+\cfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \textbf{\textcolor{JordanBlue}{El Algoritmo de la Integración}}} \\
+    \vspace{5pt}
+    {\large \textcolor{JordanGold}{Guía Avanzada para la Identificación de Métodos}} \\
+    \vspace{10pt}
+    \textit{Autor: Jordan Academy}
+    \vspace{20pt}
+\end{center}
+
+\section*{Introducción}
+Integrar es un arte de reconocimiento. A diferencia de la derivación, donde hay reglas fijas, la integración requiere identificar la estructura de la función. A continuación, presentamos la jerarquía de decisión de \textbf{Jordan Academy}.
+
+\hr
+\vspace{10pt}
+
+% --- Método 1 ---
+\begin{metodo}{1. Cambio de Variable (Sustitución Simple)}{Estructura: $\int f(g(x))g'(x) dx$}
+    Es el primer método a intentar. Se utiliza cuando observas que una parte de la integral es la \textbf{derivada} de otra parte (posiblemente ignorando constantes).
+\end{metodo}
+
+\begin{tip}{¿Cuándo usarlo?}
+    \begin{itemize}
+        \item Hay una función compuesta (algo dentro de una raíz, potencia o denominador).
+        \item La derivada de la "función interna" está multiplicando fuera.
+        \item \textit{Ejemplo:} $\int x^2 \cos(x^3) dx$. Aquí $u=x^3$ porque su derivada $3x^2$ está presente.
+    \end{itemize}
+\end{tip}
+
+% --- Método 2 ---
+\begin{metodo}{2. Integración por Partes}{Estructura: $\int u \, dv$}
+    Se basa en la regla del producto. Se utiliza principalmente para productos de funciones de distinta naturaleza.
+\end{metodo}
+
+\begin{tip}{Regla mnemotécnica: LIATE}
+    Para elegir $u$, sigue este orden de prioridad:
+    \begin{enumerate}[label=\textbf{\textcolor{JordanGold}{\arabic*.}}]
+        \item \textbf{L}ogarítmicas ($\ln x$)
+        \item \textbf{I}nversas trigonométricas ($\arctan x$)
+        \item \textbf{A}lgebráicas ($x^n$)
+        \item \textbf{T}rigonométricas ($\sin x$)
+        \item \textbf{E}xponenciales ($e^x$)
+    \end{enumerate}
+    Si tienes un producto de dos de estas, usa Partes.
+\end{tip}
+
+% --- Método 3 ---
+\begin{metodo}{3. Sustitución Trigonométrica}{Estructura: Radicales $\sqrt{a^2 \pm u^2}$ o $\sqrt{u^2 - a^2}$}
+    Se aplica cuando aparecen raíces cuadradas que impiden una sustitución simple, involucrando sumas o restas de cuadrados.
+\end{metodo}
+
+\begin{tip}{Los tres escenarios clásicos}
+    \begin{itemize}
+        \item $\sqrt{a^2 - x^2} \implies x = a \sin \theta$
+        \item $\sqrt{a^2 + x^2} \implies x = a \tan \theta$
+        \item $\sqrt{x^2 - a^2} \implies x = a \sec \theta$
+    \end{itemize}
+\end{tip}
+
+% --- Método 4 ---
+\begin{metodo}{4. Fracciones Parciales}{Estructura: $\int \frac{P(x)}{Q(x)} dx$}
+    Se utiliza para funciones racionales (cociente de polinomios).
+\end{metodo}
+
+\begin{tip}{Requisitos previos}
+    \begin{itemize}
+        \item El grado del numerador debe ser \textbf{menor} que el del denominador. Si no, realiza primero una división polinómica.
+        \item El denominador $Q(x)$ debe ser factorizable en términos lineales o cuadráticos irreducibles.
+    \end{itemize}
+\end{tip}
+
+% --- Método 5 ---
+\begin{metodo}{5. Potencias Trigonométricas}{Estructura: $\int \sin^m x \cos^n x dx$}
+    Método específico para productos de senos y cosenos (o secantes y tangentes).
+\end{metodo}
+
+\begin{tip}{Estrategia de paridad}
+    \begin{itemize}
+        \item Si el exponente es \textbf{impar}: Aparta una unidad para el diferencial y usa la identidad $\sin^2 x + \cos^2 x = 1$.
+        \item Si el exponente es \textbf{par}: Usa identidades de ángulo doble ($\sin^2 x = \frac{1-\cos 2x}{2}$).
+    \end{itemize}
+\end{tip}
+
+\vspace{20pt}
+\begin{center}
+    \begin{tcolorbox}[colback=JordanBlue, coltext=white, width=0.8\linewidth, center]
+        \centering \bfseries REGLA DE ORO \\
+        Si una integral parece imposible, intenta simplificar algebraicamente primero. A veces un poco de álgebra convierte una integral "de partes" en una "directa".
+    \end{tcolorbox}
+\end{center}
+
+\vfill
+\begin{center}
+    \textcolor{gray}{\small © 2026 Jordan Academy - "Sapere Aude"}
+\end{center}
+
+\end{document}
