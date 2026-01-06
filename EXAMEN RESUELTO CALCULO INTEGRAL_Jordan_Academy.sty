@@ -1,0 +1,158 @@
+\documentclass[12pt]{article}
+
+% --- Paquetes de Idioma y Matemáticas ---
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{geometry}
+
+% --- Estética y Colores ---
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+% Configuración de página
+\geometry{letterpaper, margin=2.5cm}
+
+% Definición de colores "Jordan Academy"
+\definecolor{JordanBlue}{HTML}{1A237E}
+\definecolor{JordanGold}{HTML}{C5A059}
+
+% --- Estilo de las Cajas de Ejercicios ---
+\newtcolorbox{ejercicio}[1]{
+    colback=white,
+    colframe=JordanBlue,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    title=Ejercicio: #1,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=JordanBlue},
+    sharp corners=northwest,
+    arc=2mm,
+    boxrule=1pt,
+    drop shadow
+}
+
+% --- Estilo de la Solución ---
+\newenvironment{solucion}{
+    \vspace{5pt}
+    \noindent\textbf{\textcolor{JordanBlue}{Resolución Paso a Paso:}}
+    \hr\smallskip
+}{
+    \vspace{15pt}
+}
+
+\newcommand{\hr}{\par\noindent\textcolor{JordanGold}{\rule{\linewidth}{0.6pt}}\par}
+
+% --- Encabezado y Pie de Página ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textit{\textcolor{gray}{Solucionario de Integrales}}}
+\rhead{\textbf{\textcolor{JordanBlue}{Jordan Academy}}}
+\cfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \textbf{\textcolor{JordanBlue}{Cálculo Integral Avanzado}}} \\
+    \vspace{5pt}
+    {\large \textcolor{JordanGold}{Resolución de Guía Práctica}} \\
+    \vspace{10pt}
+    \textit{Preparado por: Jordan Academy}
+    \vspace{20pt}
+\end{center}
+
+% --- Ejercicio 1 ---
+\begin{ejercicio}{Integración por Sustitución Algebráica}
+    Calcule la integral:
+    \[ I = \int x^3 \sqrt{ax^2+4} \, dx \]
+\end{ejercicio}
+
+\begin{solucion}
+    Utilizamos el cambio de variable para eliminar la raíz:
+    Sea $u = ax^2 + 4$, entonces $du = 2ax \, dx \implies x \, dx = \frac{du}{2a}$. \\
+    Además, despejando $x^2$: $x^2 = \frac{u-4}{a}$.
+    
+    Reescribimos la integral original:
+    \[ I = \int x^2 \cdot \sqrt{ax^2+4} \cdot (x \, dx) \]
+    Sustituyendo los términos:
+    \[ I = \int \left( \frac{u-4}{a} \right) \sqrt{u} \left( \frac{du}{2a} \right) = \frac{1}{2a^2} \int (u - 4)u^{1/2} \, du \]
+    \[ I = \frac{1}{2a^2} \int (u^{3/2} - 4u^{1/2}) \, du \]
+    Integrando término a término:
+    \[ I = \frac{1}{2a^2} \left[ \frac{2}{5}u^{5/2} - 4 \cdot \frac{2}{3}u^{3/2} \right] + C \]
+    Volviendo a la variable original $x$:
+    \[ \mathbf{I = \frac{1}{a^2} \left[ \frac{(ax^2+4)^{5/2}}{5} - \frac{4(ax^2+4)^{3/2}}{3} \right] + C} \]
+\end{solucion}
+
+% --- Ejercicio 2 ---
+\begin{ejercicio}{Sustitución Trigonométrica}
+    Resuelva la integral:
+    \[ I = \int \frac{\sqrt{(25-9x^2)^3}}{x^6} \, dx \]
+\end{ejercicio}
+
+\begin{solucion}
+    Dada la forma $\sqrt{a^2 - u^2}$, usamos $3x = 5 \sin \theta$, por lo tanto:
+    $x = \frac{5}{3} \sin \theta$, $dx = \frac{5}{3} \cos \theta \, d\theta$, y $\sqrt{25-9x^2} = 5 \cos \theta$.
+    
+    Sustituimos en la integral:
+    \[ I = \int \frac{(5 \cos \theta)^3 \cdot \frac{5}{3} \cos \theta \, d\theta}{(\frac{5}{3} \sin \theta)^6} = \int \frac{125 \cdot \frac{5}{3} \cos^4 \theta}{\frac{15625}{729} \sin^6 \theta} \, d\theta \]
+    Simplificando las constantes: $\frac{625/3}{15625/729} = \frac{243}{25}$.
+    \[ I = \frac{243}{25} \int \frac{\cos^4 \theta}{\sin^4 \theta \cdot \sin^2 \theta} \, d\theta = \frac{243}{25} \int \cot^4 \theta \csc^2 \theta \, d\theta \]
+    Haciendo $v = \cot \theta \implies dv = -\csc^2 \theta \, d\theta$:
+    \[ I = -\frac{243}{25} \int v^4 \, dv = -\frac{243}{125} \cot^5 \theta + C \]
+    Como $\cot \theta = \frac{\sqrt{25-9x^2}}{3x}$, el resultado final es:
+    \[ \mathbf{I = -\frac{(25-9x^2)^{5/2}}{125 x^5} + C} \]
+\end{solucion}
+
+% --- Ejercicio 3 ---
+\begin{ejercicio}{Sustitución Trigonométrica (Tangente)}
+    Halle:
+    \[ I = \int \frac{dx}{\sqrt{(25+121x^2)^3}} \]
+\end{ejercicio}
+
+\begin{solucion}
+    Usamos la sustitución $11x = 5 \tan \theta$, donde $dx = \frac{5}{11} \sec^2 \theta \, d\theta$ y la raíz se vuelve $5 \sec \theta$.
+    
+    La integral se transforma en:
+    \[ I = \int \frac{\frac{5}{11} \sec^2 \theta}{(5 \sec \theta)^3} \, d\theta = \int \frac{\frac{5}{11} \sec^2 \theta}{125 \sec^3 \theta} \, d\theta = \frac{1}{275} \int \frac{1}{\sec \theta} \, d\theta \]
+    \[ I = \frac{1}{275} \int \cos \theta \, d\theta = \frac{1}{275} \sin \theta + C \]
+    A partir de $\tan \theta = \frac{11x}{5}$, construimos el triángulo: $\sin \theta = \frac{11x}{\sqrt{121x^2 + 25}}$.
+    \[ \mathbf{I = \frac{x}{25\sqrt{121x^2+25}} + C} \]
+\end{solucion}
+
+% --- Ejercicio 4 ---
+\begin{ejercicio}{Integración por Partes Reutilizable}
+    Determine:
+    \[ I = \int \pi^{ax} \sin(bx) \, dx \]
+\end{ejercicio}
+
+\begin{solucion}
+    Notamos que $\pi^{ax} = e^{(a \ln \pi)x}$. Sea $k = a \ln \pi$. La integral es $\int e^{kx} \sin(bx) dx$.
+    Aplicando integración por partes dos veces, llegamos a la fórmula estándar:
+    \[ I = \frac{e^{kx}}{k^2 + b^2} [k \sin(bx) - b \cos(bx)] + C \]
+    Sustituyendo de vuelta $k$ y $e^{kx}$:
+    \[ \mathbf{I = \frac{\pi^{ax}}{(a \ln \pi)^2 + b^2} [a \ln \pi \sin(bx) - b \cos(bx)] + C} \]
+\end{solucion}
+
+% --- Ejercicio 5 ---
+\begin{ejercicio}{Sustitución y Partes}
+    Calcule:
+    \[ I = \int x^9 e^{\pi x^5} \, dx \]
+\end{ejercicio}
+
+\begin{solucion}
+    Sea $u = x^5 \implies du = 5x^4 \, dx$. Notamos que $x^9 = x^5 \cdot x^4$.
+    \[ I = \int u \cdot e^{\pi u} \cdot \frac{1}{5} \, du = \frac{1}{5} \int u e^{\pi u} \, du \]
+    Aplicamos partes: $w = u, dz = e^{\pi u} du \implies dw = du, z = \frac{1}{\pi} e^{\pi u}$.
+    \[ I = \frac{1}{5} \left[ \frac{u e^{\pi u}}{\pi} - \int \frac{1}{\pi} e^{\pi u} \, du \right] = \frac{1}{5} \left[ \frac{u e^{\pi u}}{\pi} - \frac{e^{\pi u}}{\pi^2} \right] + C \]
+    Factorizando y volviendo a $x$:
+    \[ \mathbf{I = \frac{e^{\pi x^5}}{5\pi^2} (\pi x^5 - 1) + C} \]
+\end{solucion}
+
+\vfill
+\begin{center}
+    \textcolor{gray}{\small © 2026 Jordan Academy - Excelencia Académica}
+\end{center}
+
+\end{document}
